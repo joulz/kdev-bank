@@ -1,7 +1,9 @@
 package bank;
 
+import java.util.Objects;
+
 public class AccountId {
-	final int id;
+	private final int id;
 
 	public AccountId(int id) {
 		if (id > 99999999) {
@@ -18,25 +20,26 @@ public class AccountId {
 		this.id = id;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+	public AccountId(String accountId) {
+		this(Integer.parseInt(accountId));
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(other instanceof AccountId))
 			return false;
-		AccountId other = (AccountId) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		return id == ((AccountId) other).id;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%08d", id);
 	}
 }
