@@ -2,7 +2,7 @@ package bank;
 
 import java.util.Objects;
 
-public class AccountId {
+public class AccountId implements Comparable<AccountId> {
 	private final int id;
 
 	public AccountId(int id) {
@@ -44,5 +44,9 @@ public class AccountId {
 	@Override
 	public String toString() {
 		return String.format("%08d", id);
+	}
+
+	public int compareTo(AccountId other) {
+		return Integer.valueOf(this.id).compareTo(Integer.valueOf(other.id)); 
 	}
 }

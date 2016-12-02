@@ -69,4 +69,21 @@ public class BankTest {
 		expectedException.expect(IllegalStateException.class);
 		bank.closeAccount(accountId);
 	}
+	
+	@Test
+	public void all_accounts_are_printed_out() throws Exception {
+		bank.openAccount("customer1");
+		bank.openAccount("customer2");
+		String accountInformations = bank.ShowAllAccounts();
+		assertThat(accountInformations, is(
+				"Id: 00000001; Name: customer1; Balance: 0,00 EUR" + "\n"+
+				"Id: 00000002; Name: customer2; Balance: 0,00 EUR"
+				));
+	}
+	
+	@Test
+	public void new_bank_has_empty_account_information() throws Exception {
+		String accountInformations = bank.ShowAllAccounts();
+		assertThat(accountInformations, is(""));
+	}
 }

@@ -3,6 +3,7 @@ package bank;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class Bank {
 	private Map<AccountId, Account> accounts = new HashMap<>();
@@ -29,5 +30,13 @@ public class Bank {
 			throw new IllegalStateException("balance must be zero");
 		}
 		accounts.remove(accountId);
+	}
+	
+	public String ShowAllAccounts(){
+		AccountFormatter formatter = new AccountFormatter();
+		return accounts.values().stream()
+			.sorted((o1, o2) -> o1.getAccountId().compareTo(o2.getAccountId()))
+			.map(formatter::formatAccountInformation)
+			.collect(Collectors.joining("\n"));
 	}
 }
