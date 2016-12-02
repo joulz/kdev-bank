@@ -31,10 +31,13 @@ public class AccountId {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other == null)
+		if (other == null) {
 			return false;
-		if (!(other instanceof AccountId))
+		}
+		if (!(other instanceof AccountId)) {
 			return false;
+		}
+
 		return id == ((AccountId) other).id;
 	}
 

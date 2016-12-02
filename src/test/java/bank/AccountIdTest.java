@@ -2,6 +2,7 @@ package bank;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Rule;
@@ -39,6 +40,20 @@ public class AccountIdTest {
 	}
 
 	@Test
+	public void account_id_is_not_equal_to_null() throws Exception {
+		AccountId accountId1 = new AccountId(1);
+
+		assertThat(accountId1, is(not(equalTo(null))));
+	}
+
+	@Test
+	public void account_id_is_not_equal_to_other_type() throws Exception {
+		AccountId accountId1 = new AccountId(1);
+
+		assertThat(accountId1, is(not(equalTo(new Integer(1)))));
+	}
+
+	@Test
 	public void two_equal_account_ids_must_have_same_hash() throws Exception {
 		AccountId accountId1 = new AccountId(123);
 		AccountId accountId2 = new AccountId(123);
@@ -53,7 +68,8 @@ public class AccountIdTest {
 	}
 
 	@Test
-	public void id_created_by_extended_form_is_equal_to_numeric_form() throws Exception {
+	public void id_created_by_extended_form_is_equal_to_numeric_form()
+			throws Exception {
 		AccountId accountId = new AccountId(123);
 		AccountId accountIdExtened = new AccountId("00000123");
 		assertThat(accountId, is(equalTo(accountIdExtened)));
