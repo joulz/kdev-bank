@@ -6,6 +6,8 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.NoSuchElementException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -35,5 +37,13 @@ public class BankTest {
 		Bank bank = new Bank();
 		expectedException.expect(IllegalArgumentException.class);
 		bank.openAccount("");
+	}
+	
+	@Test
+	public void accessing_account_by_unkownId_should_fail() {
+		Bank bank = new Bank();
+		AccountId accountId = new AccountId(123);
+		expectedException.expect(NoSuchElementException.class);
+		bank.getAccount(accountId);
 	}
 }
