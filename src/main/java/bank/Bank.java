@@ -2,6 +2,7 @@ package bank;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class Bank {
 	private Map<AccountId, Account> accounts = new HashMap<>();
@@ -16,6 +17,9 @@ public class Bank {
 	}
 
 	public Account getAccount(AccountId accountId) {
+		if (!accounts.containsKey(accountId)) {
+			throw new NoSuchElementException("unknown Account-Id");
+		}
 		return accounts.get(accountId);
 	}
 }
