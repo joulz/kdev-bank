@@ -13,6 +13,11 @@ public class Account {
 		this.name = name;
 	}
 	
+	public Account(AccountId accountId, String name, long balance) {
+		this(accountId, name);
+		deposit(balance);
+	}
+	
 	public void deposit(long amount){
 		if (amount <= 0) {
 			throw new IllegalArgumentException("amount must not be negative or zero");

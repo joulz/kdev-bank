@@ -101,4 +101,16 @@ public class AccountTest {
 		expectedException.expect(IllegalArgumentException.class);
 		account.withdraw(0);
 	}
+	
+	@Test
+	public void create_bank_account_with_initial_balance() {
+		Account account = new Account(new AccountId(1), "Jon Doe", 500);
+		assertThat(account.getBalance(), is(500l));
+	}
+	
+	@Test
+	public void create_bank_account_with_initial_negative_balance_fails() {
+		expectedException.expect(IllegalArgumentException.class);
+		new Account(new AccountId(1), "Jon Doe", -500);	
+	}
 }
