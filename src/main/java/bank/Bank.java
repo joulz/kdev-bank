@@ -22,4 +22,12 @@ public class Bank {
 		}
 		return accounts.get(accountId);
 	}
+
+	public void closeAccount(AccountId accountId) {
+		Account account = accounts.get(accountId);
+		if (account.getBalance() > 0) {
+			throw new IllegalStateException("balance must be zero");
+		}
+		accounts.remove(accountId);
+	}
 }

@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class AcoountIdTest {
+public class AccountIdTest {
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
