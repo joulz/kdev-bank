@@ -19,6 +19,16 @@ public class Account {
 		}
 		this.balance += amount;
 	}
+	
+	public void withdraw(long amount){
+		if(amount <=  0){
+			throw new IllegalArgumentException("amount must not be negative or zero");
+		}
+		if(amount > balance){
+			throw new IllegalArgumentException("withdraw amount is higher than balance");
+		}
+		balance -= amount;
+	}
 
 	public String getName() {
 		return name;

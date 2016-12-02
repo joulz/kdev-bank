@@ -54,6 +54,15 @@ public class AccountIdTest {
 	}
 
 	@Test
+	public void two_objects_of_different_ids_must_not_be_equal()
+			throws Exception {
+		AccountId accountId1 = new AccountId(1);
+		AccountId accountId2 = new AccountId(2);
+
+		assertThat(accountId1, is(not(equalTo(accountId2))));
+	}
+
+	@Test
 	public void two_equal_account_ids_must_have_same_hash() throws Exception {
 		AccountId accountId1 = new AccountId(123);
 		AccountId accountId2 = new AccountId(123);
