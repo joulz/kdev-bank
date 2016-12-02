@@ -6,14 +6,11 @@ import java.util.Map;
 public class Bank {
 	private Map<AccountId, Account> accounts = new HashMap<>();
 	private int lastUsedAccountId = 0;
-	
+
 	public AccountId openAccount(String customerName) {
-		if ((customerName == null) || (customerName.isEmpty())) {
-			throw new IllegalArgumentException("customer name must be set");
-		}
 		int newAccountId = lastUsedAccountId + 1;
 		AccountId accountId = new AccountId(newAccountId);
-		accounts.put(accountId, new Account());
+		accounts.put(accountId, new Account(accountId, customerName));
 		lastUsedAccountId = newAccountId;
 		return accountId;
 	}
