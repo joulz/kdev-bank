@@ -20,6 +20,12 @@ public class AccountTest {
 	}
 
 	@Test
+	public void account_owner_must_not_be_null() throws Exception {
+		expectedException.expect(IllegalArgumentException.class);
+		new Account(new AccountId(1), null);
+	}
+	
+	@Test
 	public void accounance_name_is_stored_in_account() throws Exception {
 		Account account = new Account(new AccountId(1), "Jon Doe");
 		assertThat(account.getName(), is("Jon Doe"));
@@ -38,12 +44,6 @@ public class AccountTest {
 	}
 
 	@Test
-	public void initial_account_has_no_balance() {
-		Account account = new Account(new AccountId(1), "Jon Doe");
-		assertThat(account.getBalance(), is(0l));
-	}
-
-	@Test
 	public void deposit_money_increases_balance() {
 		Account account = new Account(new AccountId(1), "Jon Doe");
 		account.deposit(100);
@@ -55,5 +55,52 @@ public class AccountTest {
 		Account account = new Account(new AccountId(1), "Jon Doe");
 		expectedException.expect(IllegalArgumentException.class);
 		account.deposit(-1);
+	}
+	
+	@Test
+	public void deposit_zero_amount_fails() {
+		Account account = new Account(new AccountId(1), "Jon Doe");
+		expectedException.expect(IllegalArgumentException.class);
+		account.deposit(0);
+	}
+	
+	@Test
+	public void withdraw_money_decreases_balance() {
+		Account account = new Account(new AccountId(1), "Jon Doe");
+		account.deposit(500);
+		account.withdraw(100);
+		assertThat(account.getBalance(), is(400l));
+	}
+	
+	@Test
+	public void withdraw_negative_amount_fails() {
+		Account account = new Account(new AccountId(1), "Jon Doe");
+		account.deposit(500);
+		expectedException.expect(IllegalArgumentException.class);
+		account.withdraw(-1);
+	}
+
+	@Test
+	public void withdraw_more_than_balance_fails() {
+		Account account = new Account(new AccountId(1), "Jon Doe");
+		account.deposit(500);
+		expectedException.expect(IllegalArgumentException.class);
+		account.withdraw(501);
+	}
+	
+	@Test
+	public void withdraw_account_balance_succeeds() {
+		Account account = new Account(new AccountId(1), "Jon Doe");
+		account.deposit(500);
+		account.withdraw(500);
+		assertThat(account.getBalance(), is(0l));		
+	}
+	
+	@Test
+	public void withdraw_zero_amount_fails() {
+		Account account = new Account(new AccountId(1), "Jon Doe");
+		account.deposit(500);
+		expectedException.expect(IllegalArgumentException.class);
+		account.withdraw(0);
 	}
 }

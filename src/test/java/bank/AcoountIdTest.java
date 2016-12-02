@@ -1,7 +1,7 @@
 package bank;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Rule;
@@ -36,6 +36,14 @@ public class AcoountIdTest {
 		AccountId accountId2 = new AccountId(1);
 
 		assertThat(accountId1, is(equalTo(accountId2)));
+	}
+
+	@Test
+	public void two_objects_of_different_ids_must_not_be_equal() throws Exception {
+		AccountId accountId1 = new AccountId(1);
+		AccountId accountId2 = new AccountId(2);
+
+		assertThat(accountId1, is(not(equalTo(accountId2))));
 	}
 
 	@Test
