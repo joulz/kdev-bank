@@ -12,25 +12,28 @@ public class Account {
 		}
 		this.name = name;
 	}
-	
+
 	public Account(AccountId accountId, String name, long balance) {
 		this(accountId, name);
 		deposit(balance);
 	}
-	
-	public void deposit(long amount){
+
+	public void deposit(long amount) {
 		if (amount <= 0) {
-			throw new IllegalArgumentException("amount must not be negative or zero");
+			throw new IllegalArgumentException(
+					"amount must not be negative or zero");
 		}
 		this.balance += amount;
 	}
-	
-	public void withdraw(long amount){
-		if(amount <=  0){
-			throw new IllegalArgumentException("amount must not be negative or zero");
+
+	public void withdraw(long amount) {
+		if (amount <= 0) {
+			throw new IllegalArgumentException(
+					"amount must not be negative or zero");
 		}
-		if(amount > balance){
-			throw new IllegalArgumentException("withdraw amount is higher than balance");
+		if (amount > balance) {
+			throw new IllegalArgumentException(
+					"withdraw amount is higher than balance");
 		}
 		balance -= amount;
 	}
@@ -45,5 +48,10 @@ public class Account {
 
 	public long getBalance() {
 		return balance;
+	}
+
+	public void transferTo(long amount, Account receiver) {
+		withdraw(amount);
+		receiver.deposit(amount);
 	}
 }

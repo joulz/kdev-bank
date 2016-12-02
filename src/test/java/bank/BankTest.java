@@ -74,7 +74,7 @@ public class BankTest {
 	public void all_accounts_are_printed_out() throws Exception {
 		bank.openAccount("customer1");
 		bank.openAccount("customer2");
-		String accountInformations = bank.ShowAllAccounts();
+		String accountInformations = bank.showAllAccounts();
 		assertThat(accountInformations, is(
 				"Id: 00000001; Name: customer1; Balance: 0,00 EUR" + "\n"+
 				"Id: 00000002; Name: customer2; Balance: 0,00 EUR"
@@ -83,7 +83,23 @@ public class BankTest {
 	
 	@Test
 	public void new_bank_has_empty_account_information() throws Exception {
-		String accountInformations = bank.ShowAllAccounts();
+		String accountInformations = bank.showAllAccounts();
 		assertThat(accountInformations, is(""));
+	}
+
+	@Test
+	public void account_can_be_opened_with_inital_balance() throws Exception {
+		AccountId accountId = bank.openAccount("Customer", 500l);
+		Account account = bank.getAccount(accountId);
+		assertThat(account.getBalance(), is(500l));
+	}
+
+	@Test
+	public void bank_can_calculate_the_cumulated_balances() throws Exception {
+		bank.openAccount("Customer", 500l);
+		bank.openAccount("Customer", 501l);
+		bank.openAccount("Customer", 502l);
+
+		assertThat(bank.getTotalBalance(), is(1503l));
 	}
 }
