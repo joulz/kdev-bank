@@ -69,4 +69,20 @@ public class BankTest {
 		expectedException.expect(IllegalStateException.class);
 		bank.closeAccount(accountId);
 	}
+
+	@Test
+	public void account_can_be_opened_with_inital_balance() throws Exception {
+		AccountId accountId = bank.openAccount("Customer", 500l);
+		Account account = bank.getAccount(accountId);
+		assertThat(account.getBalance(), is(500l));
+	}
+
+	@Test
+	public void bank_can_calculate_the_cumulated_balances() throws Exception {
+		bank.openAccount("Customer", 500l);
+		bank.openAccount("Customer", 501l);
+		bank.openAccount("Customer", 502l);
+
+		assertThat(bank.getTotalBalance(), is(1503l));
+	}
 }
