@@ -37,4 +37,25 @@ public class AcoountIdTest {
 
 		assertThat(accountId1, is(equalTo(accountId2)));
 	}
+
+	@Test
+	public void two_equal_account_ids_must_have_same_hash() throws Exception {
+		AccountId accountId1 = new AccountId(123);
+		AccountId accountId2 = new AccountId(123);
+
+		assertThat(accountId1.hashCode(), is(accountId2.hashCode()));
+	}
+
+	@Test
+	public void id_is_always_displayed_with_8_digits() throws Exception {
+		AccountId accountId = new AccountId(123);
+		assertThat(accountId.toString(), is("00000123"));
+	}
+
+	@Test
+	public void id_created_by_extended_form_is_equal_to_numeric_form() throws Exception {
+		AccountId accountId = new AccountId(123);
+		AccountId accountIdExtened = new AccountId("00000123");
+		assertThat(accountId, is(equalTo(accountIdExtened)));
+	}
 }
